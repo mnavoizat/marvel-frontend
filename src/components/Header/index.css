@@ -1,0 +1,40 @@
+.header {
+  background-color: black;
+  color: white;
+  height: 80px;
+  font-family: "Bebas Neue", cursive;
+}
+.header ul {
+  display: flex;
+}
+.header li {
+  margin: 0 40px;
+  font-size: 34px;
+}
+.header .link {
+  text-decoration: none;
+  color: white;
+}
+.header > div {
+  margin: 0 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+.header .logo {
+  height: 50px;
+}
+.header .logo img {
+  height: 100%;
+}
+.header button {
+  background-color: #f11e22;
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  height: 40px;
+  width: 80px;
+  color: white;
+  font-size: 20px;
+}
