@@ -5,6 +5,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { useParams } from "react-router-dom";
 
 import Comic from "../components/Comic";
+import Footer from "../components/Footer";
 import PageIndex from "../components/PageIndex";
 import Search from "../components/Search";
 
@@ -26,9 +27,7 @@ const Comics = ({ favoriteComics, setFavoriteComics }) => {
         }&search=${searchComic}`
       );
       console.log(response.data);
-      const results = response.data.data.results;
-      results.sort((a, b) => (a.title > b.title ? 1 : -1));
-      setData({ results, total: response.data.data.total });
+      setData(response.data.data);
       setIsLoading(false);
     };
     fetchData();
@@ -39,22 +38,29 @@ const Comics = ({ favoriteComics, setFavoriteComics }) => {
       <Loader type="Puff" color="#F11E22" height={100} width={100} />
     </div>
   ) : (
-    <div className="comics">
-      <Search setSearch={setSearchComic} />
-      <div className="container-comics">
-        {data.results.map((element, index) => {
-          return (
-            <Comic
-              key={index}
-              data={element}
-              favoriteComics={favoriteComics}
-              setFavoriteComics={setFavoriteComics}
-            />
-          );
-        })}
+    <>
+      <div className="comics">
+        <Search setSearch={setSearchComic} />
+        <div className="container-comics">
+          {data.results.map((element, index) => {
+            return (
+              <Comic
+                key={index}
+                data={element}
+                favoriteComics={favoriteComics}
+                setFavoriteComics={setFavoriteComics}
+              />
+            );
+          })}
+        </div>
+        {!searchComic && (
+          <>
+            <PageIndex data={data} page={page} pageName="comics" />
+            <Footer />
+          </>
+        )}
       </div>
-      {!searchComic && <PageIndex data={data} page={page} pageName="comics" />}
-    </div>
+    </>
   );
 };
 

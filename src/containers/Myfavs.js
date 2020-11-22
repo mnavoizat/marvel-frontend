@@ -6,6 +6,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import Character from "../components/Character";
 import Comic from "../components/Comic";
+import Footer from "../components/Footer";
 
 const Myfavs = ({
   favoriteCharacters,
@@ -61,54 +62,57 @@ const Myfavs = ({
       <Loader type="Puff" color="#F11E22" height={100} width={100} />
     </div>
   ) : (
-    <div className="characters-block">
-      <div>
-        <div>Favorite characters :</div>
-      </div>
-      <div className="characters">
-        {dataCharacters?.results.length > 0 ? (
-          <div className="container-characters">
-            {dataCharacters.results.map((element, index) => {
-              return (
-                <Character
-                  key={index}
-                  data={element}
-                  favoriteCharacters={favoriteCharacters}
-                  setFavoriteCharacters={setFavoriteCharacters}
-                />
-                //)
-              );
-            })}
-          </div>
-        ) : (
-          <div className="no-fav">Vous n'avez aucun personnage favori</div>
-        )}
-      </div>
-      <div className="comics-block">
+    <>
+      <div className="characters-block">
         <div>
           <div>Favorite characters :</div>
         </div>
-        <div>
-          {dataComics.results?.length > 0 ? (
-            <div className="container-comics">
-              {dataComics.results.map((element, index) => {
+        <div className="characters">
+          {dataCharacters?.results.length > 0 ? (
+            <div className="container-characters">
+              {dataCharacters.results.map((element, index) => {
                 return (
-                  <Comic
+                  <Character
                     key={index}
                     data={element}
-                    favoriteComics={favoriteComics}
-                    setFavoriteComics={setFavoriteComics}
+                    favoriteCharacters={favoriteCharacters}
+                    setFavoriteCharacters={setFavoriteCharacters}
                   />
                   //)
                 );
               })}
             </div>
           ) : (
-            <div className="no-fav">Vous n'avez aucun comic favori</div>
+            <div className="no-fav">You don't have any favorite character</div>
           )}
         </div>
+        <div className="comics-block">
+          <div>
+            <div>Favorite comics :</div>
+          </div>
+          <div>
+            {dataComics.results?.length > 0 ? (
+              <div className="container-comics">
+                {dataComics.results.map((element, index) => {
+                  return (
+                    <Comic
+                      key={index}
+                      data={element}
+                      favoriteComics={favoriteComics}
+                      setFavoriteComics={setFavoriteComics}
+                    />
+                    //)
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="no-fav">You don't have any favorite comics</div>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

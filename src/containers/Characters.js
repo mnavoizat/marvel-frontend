@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import Character from "../components/Character";
 import PageIndex from "../components/PageIndex";
 import Search from "../components/Search";
+import Footer from "../components/Footer";
 
 const Characters = ({ favoriteCharacters, setFavoriteCharacters }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,26 +39,31 @@ const Characters = ({ favoriteCharacters, setFavoriteCharacters }) => {
       <Loader type="Puff" color="#F11E22" height={100} width={100} />
     </div>
   ) : (
-    <div className="characters">
-      <Search setSearch={setSearchCharacter} />
-      <div className="container-characters">
-        {data.results.map((element, index) => {
-          return (
-            //element.name.match(regex) && (
-            <Character
-              key={index}
-              data={element}
-              favoriteCharacters={favoriteCharacters}
-              setFavoriteCharacters={setFavoriteCharacters}
-            />
-            //)
-          );
-        })}
+    <>
+      <div className="characters">
+        <Search setSearch={setSearchCharacter} />
+        <div className="container-characters">
+          {data.results.map((element, index) => {
+            return (
+              //element.name.match(regex) && (
+              <Character
+                key={index}
+                data={element}
+                favoriteCharacters={favoriteCharacters}
+                setFavoriteCharacters={setFavoriteCharacters}
+              />
+              //)
+            );
+          })}
+        </div>
+        {!searchCharacter && (
+          <>
+            <PageIndex data={data} page={page} pageName="characters" />
+            <Footer />
+          </>
+        )}
       </div>
-      {!searchCharacter && (
-        <PageIndex data={data} page={page} pageName="characters" />
-      )}
-    </div>
+    </>
   );
 };
 
