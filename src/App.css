@@ -1,5 +1,6 @@
 body {
-  background-image: url("./assets/background.jpg");
+  background-image: url("./assets/Nebuleuse.jpg");
+  background-size: cover;
   background-attachment: fixed;
   font-family: "Bebas Neue", cursive;
 }
@@ -13,7 +14,7 @@ body {
 }
 /* CHARACTERS */
 .characters {
-  background-color: rgba(0, 0, 0, 0.795);
+  /* background-color: rgba(0, 0, 0, 0.795); */
   min-height: calc(100vh - 80px);
 }
 .container-characters {
@@ -24,7 +25,7 @@ body {
 }
 /* COMICS */
 .comics {
-  background-color: rgba(0, 0, 0, 0.795);
+  /* background-color: rgba(0, 0, 0, 0.795); */
 }
 .container-comics {
   max-width: 1400px;
@@ -34,7 +35,7 @@ body {
 }
 /* DISPLAY CHARACTER */
 .display-character {
-  background-color: rgba(0, 0, 0, 0.795);
+  /* background-color: rgba(0, 0, 0, 0.795); */
 }
 .display-container1 {
   max-width: 1400px;
@@ -126,4 +127,27 @@ body {
   height: 80vh;
   padding-top: 200px;
   font-size: 26px;
+}
+
+.characters-block > div:first-child {
+  /* background-color: rgba(0, 0, 0, 0.795); */
+  color: #f11e22;
+  font-size: 24px;
+  padding-top: 40px;
+}
+.characters-block > div:first-child > div {
+  margin: 0 auto;
+  width: 1400px;
+}
+.comics-block {
+  /* background-color: rgba(0, 0, 0, 0.795); */
+}
+.comics-block > div:first-child {
+  color: #f11e22;
+  font-size: 24px;
+  padding-top: 40px;
+}
+.comics-block > div:first-child > div {
+  margin: 0 auto;
+  width: 1400px;
 }

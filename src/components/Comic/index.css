@@ -4,6 +4,18 @@
   width: calc((100% - 4 * 42px) / 4);
   height: 350px;
   font-family: "Bebas Neue", cursive;
+  position: relative;
+}
+.comic .star {
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+}
+.comic .star-fav {
+  color: #f11e22;
 }
 .comic .picture-comic {
   height: 80%;

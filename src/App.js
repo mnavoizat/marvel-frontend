@@ -33,6 +33,9 @@ function App() {
   const [favoriteCharacters, setFavoriteCharacters] = useState(
     Cookie.get("favoriteCharacters") || ""
   );
+  const [favoriteComics, setFavoriteComics] = useState(
+    Cookie.get("favoriteComics") || ""
+  );
 
   return (
     <Router>
@@ -42,13 +45,21 @@ function App() {
           <MyFavs
             favoriteCharacters={favoriteCharacters}
             setFavoriteCharacters={setFavoriteCharacters}
+            favoriteComics={favoriteComics}
+            setFavoriteComics={setFavoriteComics}
           />
         </Route>
         <Route path="/comics/:page">
-          <Comics />
+          <Comics
+            favoriteComics={favoriteComics}
+            setFavoriteComics={setFavoriteComics}
+          />
         </Route>
         <Route path="/comics">
-          <Comics />
+          <Comics
+            favoriteComics={favoriteComics}
+            setFavoriteComics={setFavoriteComics}
+          />
         </Route>
         <Route path="/display-character/:id">
           <DisplayCharacter

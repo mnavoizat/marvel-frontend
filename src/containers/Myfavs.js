@@ -5,18 +5,24 @@ import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import Character from "../components/Character";
+import Comic from "../components/Comic";
 
-const Myfavs = ({ favoriteCharacters, setFavoriteCharacters }) => {
+const Myfavs = ({
+  favoriteCharacters,
+  setFavoriteCharacters,
+  favoriteComics,
+  setFavoriteComics,
+}) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState([]);
+  const [dataCharacters, setDataCharacters] = useState([]);
+  const [dataComics, setDataComics] = useState([]);
 
   useEffect(() => {
-    if (Cookie.get("favoriteCharacters")) {
-      const listeFav = Cookie.get("favoriteCharacters").split(" ");
-      console.log(listeFav);
-      const results = [];
-
-      const fetchData = async () => {
+    const fetchData = async () => {
+      if (Cookie.get("favoriteCharacters")) {
+        const listeFav = Cookie.get("favoriteCharacters").split(" ");
+        console.log(listeFav);
+        const results = [];
         for (let i = 0; i < listeFav.length; i++) {
           if (listeFav[i]) {
             const response = await axios.get(
@@ -27,11 +33,27 @@ const Myfavs = ({ favoriteCharacters, setFavoriteCharacters }) => {
           }
         }
         console.log(results);
-        setData({ results });
-        setIsLoading(false);
-      };
-      fetchData();
-    }
+        setDataCharacters({ results });
+      }
+      if (Cookie.get("favoriteComics")) {
+        const listeFav = Cookie.get("favoriteComics").split(" ");
+        console.log(listeFav);
+        const results = [];
+        for (let i = 0; i < listeFav.length; i++) {
+          if (listeFav[i]) {
+            const response = await axios.get(
+              `https://marvel-backend-mzt.herokuapp.com/comic?id=${listeFav[i]}`
+            );
+            console.log(response.data);
+            results.push(response.data.data.results[0]);
+          }
+        }
+        console.log(results);
+        setDataComics({ results });
+      }
+      setIsLoading(false);
+    };
+    fetchData();
   }, []);
 
   return isLoading ? (
@@ -39,24 +61,53 @@ const Myfavs = ({ favoriteCharacters, setFavoriteCharacters }) => {
       <Loader type="Puff" color="#F11E22" height={100} width={100} />
     </div>
   ) : (
-    <div className="characters">
-      {data.results.length > 0 ? (
-        <div className="container-characters">
-          {data.results.map((element, index) => {
-            return (
-              <Character
-                key={index}
-                data={element}
-                favoriteCharacters={favoriteCharacters}
-                setFavoriteCharacters={setFavoriteCharacters}
-              />
-              //)
-            );
-          })}
+    <div className="characters-block">
+      <div>
+        <div>Favorite characters :</div>
+      </div>
+      <div className="characters">
+        {dataCharacters.results.length > 0 ? (
+          <div className="container-characters">
+            {dataCharacters.results.map((element, index) => {
+              return (
+                <Character
+                  key={index}
+                  data={element}
+                  favoriteCharacters={favoriteCharacters}
+                  setFavoriteCharacters={setFavoriteCharacters}
+                />
+                //)
+              );
+            })}
+          </div>
+        ) : (
+          <div className="no-fav">Vous n'avez aucun personnage favori</div>
+        )}
+      </div>
+      <div className="comics-block">
+        <div>
+          <div>Favorite characters :</div>
         </div>
-      ) : (
-        <div className="no-fav">Vous n'avez aucun favori</div>
-      )}
+        <div>
+          {dataComics.results.length > 0 ? (
+            <div className="container-comics">
+              {dataComics.results.map((element, index) => {
+                return (
+                  <Comic
+                    key={index}
+                    data={element}
+                    favoriteComics={favoriteComics}
+                    setFavoriteComics={setFavoriteComics}
+                  />
+                  //)
+                );
+              })}
+            </div>
+          ) : (
+            <div className="no-fav">Vous n'avez aucun comic favori</div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

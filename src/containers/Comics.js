@@ -8,7 +8,7 @@ import Comic from "../components/Comic";
 import PageIndex from "../components/PageIndex";
 import Search from "../components/Search";
 
-const Comics = () => {
+const Comics = ({ favoriteComics, setFavoriteComics }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
   const [searchComic, setSearchComic] = useState("");
@@ -26,7 +26,9 @@ const Comics = () => {
         }&search=${searchComic}`
       );
       console.log(response.data);
-      setData(response.data.data);
+      const results = response.data.data.results;
+      results.sort((a, b) => (a.title > b.title ? 1 : -1));
+      setData({ results, total: response.data.data.total });
       setIsLoading(false);
     };
     fetchData();
@@ -41,7 +43,14 @@ const Comics = () => {
       <Search setSearch={setSearchComic} />
       <div className="container-comics">
         {data.results.map((element, index) => {
-          return <Comic key={index} data={element} />;
+          return (
+            <Comic
+              key={index}
+              data={element}
+              favoriteComics={favoriteComics}
+              setFavoriteComics={setFavoriteComics}
+            />
+          );
         })}
       </div>
       {!searchComic && <PageIndex data={data} page={page} pageName="comics" />}
