@@ -66,7 +66,7 @@ const Myfavs = ({
         <div>Favorite characters :</div>
       </div>
       <div className="characters">
-        {dataCharacters.results.length > 0 ? (
+        {dataCharacters?.results.length > 0 ? (
           <div className="container-characters">
             {dataCharacters.results.map((element, index) => {
               return (
@@ -89,7 +89,7 @@ const Myfavs = ({
           <div>Favorite characters :</div>
         </div>
         <div>
-          {dataComics.results.length > 0 ? (
+          {dataComics.results?.length > 0 ? (
             <div className="container-comics">
               {dataComics.results.map((element, index) => {
                 return (
